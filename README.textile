@@ -10,11 +10,17 @@ h2. prerequisites
 
 * *jQuery*. I'm testing against version 1.5.2 at the moment; support for older versions will come if requested.
 * *jQuery UI Draggable*. Doesn't matter how you include it, as long as it's there.
-* *a list*. `<ul>`, `<ol>`, block, inline, it doesn't really matter. `<dl>`s are a bit out there, though, I'm not sure how I'd deal with those.
+* *a list*. @<ul>@, @<ol>@, block, inline, it doesn't really matter. @<dl>@s are a bit out there, though, I'm not sure how I'd deal with those.
 
 h2. demo
+
 "Go here":http://dev.dontexplain.com/awesomereorder/example/index.html for a couple of demos. It'll look nicer if you have a modern browser, since all the pretty stuff is in CSS3.
 
 h2. browsers
+
 Right now, I've tested Chrome 12.0.712.0. I've been working on this thing for 2 hours so far; cut me some slack. =)
+
+h2. licensing
+
+Licensed under the "WTFPL":http://sam.zoy.org/wtfpl/
 
