@@ -1,5 +1,5 @@
 /**
- * awesomereorder — a lightweight, simple list reordering plugin
+ * awesomereorder — a lightweight, simple, drag-and-drop list reordering plugin
  *  clint tseng (clint@dontexplain.com) — 2011-04-03
  *   Licensed under the WTFPL (http://sam.zoy.org/wtfpl/). Do what
  *   you want, but please do let me know what you think.

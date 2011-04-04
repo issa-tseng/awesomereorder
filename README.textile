@@ -1,4 +1,4 @@
-h1. awesomereorder — a lightweight, simple list reordering plugin
+h1. awesomereorder — a lightweight, simple, drag-and-drop list reordering plugin
 
 h2. why bother?
 
