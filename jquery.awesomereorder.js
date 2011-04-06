@@ -23,8 +23,8 @@
 
                 // determine whether we're vert or horiz
                 directionType = (localOptions.directionType == 'auto') ?
-                                    (($items.css('display') == 'block') ? 'v' : 'h') :
-                                    localOptions.directionType,
+                                (($items.css('display') == 'block') || ($items.css('display') == 'list-item') ? 'v' : 'h') :
+                                localOptions.directionType,
 
                 // keep track of active item
                 $item,
@@ -61,19 +61,11 @@
             var checkHover = function(position)
             {
 //console.log('position is ' + position.top);
-                // check bounds
-                /*if ((position.left < containerOffset.left) ||
-                    (position.left > (containerOffset.left + $container.outerWidth(false))) ||
-
-                    (position.top < containerOffset.top) ||
-                    (position.top > (containerOffset.top + $container.outerHeight(false))))
-                    return;*/
-
                 // calculate initial height
                 var containerOffset = $container.offset();
                 var stackHeight = containerOffset.top - $container.scrollTop() +
                                   parseInt($container.css('margin-top'));
-//console.log('stackHeight is initially ' + stackHeight);
+
                 // run through elements to find a match
                 var found = false;
                 $container.children($(localOptions.listItemSelector)).each(function()
@@ -85,11 +77,11 @@
                         stackHeight += $candidate.outerHeight(true);
                         return;
                     }
-//console.log('comparing to ' + $candidate.text());
-                    var threshold = $candidate.height() * localOptions.activeRange;
+//console.log('comparing to "' + $candidate.text() + '"');
+                    var threshold = $candidate.outerHeight(true) * localOptions.activeRange;
 //console.log('  threshold is ' + threshold);
-//console.log('  comparing position ' + position.top + ' to ' + (stackHeight + threshold + parseInt($candidate.css('margin-top'))));
-                    if (position.top < (stackHeight + threshold + parseInt($candidate.css('margin-top'))))
+//console.log('  comparing position ' + position.top + ' to ' + (stackHeight + threshold));
+                    if (position.top < (stackHeight + threshold))
                     {
                         if (!$candidate.prev().data('awesomereorder-placeholder'))
                         {
@@ -98,10 +90,10 @@
                         found = true;
                         return false; // found it!
                     }
-//console.log('  comparing position ' + position.top + ' to ' + (stackHeight - threshold - parseInt($candidate.css('margin-bottom'))) + ' and ' + stackHeight);
+//console.log('  comparing position ' + position.top + ' to ' + (stackHeight - threshold) + ' and ' + stackHeight);
                     stackHeight += $candidate.outerHeight(true);
 
-                    if ((position.top > (stackHeight - threshold - parseInt($candidate.css('margin-bottom')))) &&
+                    if ((position.top > (stackHeight - threshold)) &&
                         (position.top < stackHeight))
                     {
                         if (!$candidate.next().data('awesomereorder-placeholder'))
