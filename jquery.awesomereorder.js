@@ -60,7 +60,7 @@
 
             var checkHover = function(position)
             {
-//console.log('position is ' + position.top);
+
                 // calculate initial height
                 var containerOffset = $container.position();
                 var stackHeight = containerOffset.top - $container.scrollTop() +
@@ -77,10 +77,9 @@
                         stackHeight += $candidate.outerHeight(true);
                         return;
                     }
-//console.log('comparing to "' + $candidate.text() + '"');
+
                     var threshold = $candidate.outerHeight(true) * localOptions.activeRange;
-//console.log('  threshold is ' + threshold);
-//console.log('  comparing position ' + position.top + ' to ' + (stackHeight + threshold));
+
                     if (position.top < (stackHeight + threshold))
                     {
                         if (!$candidate.prev().data('awesomereorder-placeholder'))
@@ -90,7 +89,7 @@
                         found = true;
                         return false; // found it!
                     }
-//console.log('  comparing position ' + position.top + ' to ' + (stackHeight - threshold) + ' and ' + stackHeight);
+
                     stackHeight += $candidate.outerHeight(true);
 
                     if ((position.top > (stackHeight - threshold)) &&
@@ -104,8 +103,7 @@
                         return false; // found it!
                     }
                 });
-//console.log('found: ' + found);
-//console.log('====');
+
                 // if we didn't find anything, we want the bottom of the container
                 if (!found && !$container.children(':last-child').data('awesomereorder-placeholder'))
                 {
