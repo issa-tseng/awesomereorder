@@ -72,6 +72,9 @@
                 {
                     var $candidate = $(this);
 
+                    if (!$candidate.is(':visible'))
+                        return;
+
                     if ($candidate.data('awesomereorder-placeholder'))
                     {
                         stackHeight += $candidate.outerHeight(true);
@@ -113,7 +116,7 @@
 
             var dropItem = function($helper)
             {
-                $placeholder.after($item)
+                $placeholder.after($item.show())
                             .remove();
             };
 
@@ -131,8 +134,12 @@
                     cachedHeight = $item.outerHeight(true);
 
                     $placeholder = generatePlaceholder();
-                    $item.after($placeholder)
-                         .detach();
+                    $item.after($placeholder);
+
+                    // IE8 doesn't deal well with the original element being removed from DOM,
+                    // even if you add it to a detached parent to make jQueryUI < 1.8.9 happy.
+                    // So instead of removing the original element, let's just hide it.
+                    $item.hide();
                 },
                 drag: function(event, ui)
                 {
