@@ -62,7 +62,7 @@
             {
 //console.log('position is ' + position.top);
                 // calculate initial height
-                var containerOffset = $container.offset();
+                var containerOffset = $container.position();
                 var stackHeight = containerOffset.top - $container.scrollTop() +
                                   parseInt($container.css('margin-top'));
 
