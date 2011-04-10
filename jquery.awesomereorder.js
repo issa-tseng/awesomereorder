@@ -63,6 +63,19 @@
                 // keep track of our active placeholder
                 $placeholder;
 
+            if (localOptions.uiDraggableDefaults !== undefined)
+            {
+                var overrides = ['start', 'drag', 'stop'];
+                for (var i in overrides)
+                {
+                    if (localOptions.uiDraggableDefaults[overrides[i]] !== undefined)
+                    {
+                        localOptions[overrides[i]] = localOptions.uiDraggableDefaults[overrides[i]];
+                        delete localOptions.uiDraggableDefaults[overrides[i]];
+                    }
+                }
+            }
+
             var generatePlaceholder = function()
             {
                 return $('<div></div>').data('awesomereorder-placeholder', true)
@@ -237,12 +250,16 @@
                     // even if you add it to a detached parent to make jQueryUI < 1.8.9 happy.
                     // So instead of removing the original element, let's just hide it.
                     $item.hide();
+
+                    if (typeof localOptions.start == 'function') localOptions.start(event, ui);
                 },
                 drag: function(event, ui)
                 {
                     lastPosition = { left: ui.position.left, top: ui.position.top };
                     checkScroll(lastPosition);
                     checkHover(lastPosition);
+
+                    if (typeof localOptions.drag == 'function') localOptions.drag(event, ui);
                 },
                 stop: function(event, ui)
                 {
@@ -250,6 +267,8 @@
                     clearInterval(scrollTimer);
 
                     dropItem(ui.helper);
+
+                    if (typeof localOptions.stop == 'function') localOptions.stop(event, ui);
                 }
             }, localOptions.uiDraggableDefaults));
         });
@@ -258,11 +277,14 @@
     $.fn.awesomereorder.defaults = {
         activeRange: 0.3,
         directionType: 'auto',
+        drag: null,
         handleSelector: '.',
         listItemSelector: 'li',
         scrollCurve: 3, // eases the edge of of the scrolling zone
         scrollMargin: 40, // in px
         scrollSpeed: 25, // maximum, in px; will be scaled according to distance
+        start: null,
+        stop: null,
         uiDraggableDefaults: {
             containment: 'parent',
             distance: 5,
