@@ -22,7 +22,7 @@
 
     $.fn.awesomereorder = function(options)
     {
-        options = $.extend({}, options, $.fn.awesomereorder.defaults);
+        options = $.extend(true, {}, $.fn.awesomereorder.defaults, options);
 
         return this.each(function()
         {
