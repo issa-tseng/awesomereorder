@@ -27,7 +27,7 @@ body
     border: 1px solid #ccc;
     border-radius: 1em;
     box-shadow: 0 0 2em rgba(0, 0, 0, 0.2);
-    margin: 6em auto;
+    margin: 3em auto;
     padding: 2em;
     width: 65em;
 }
@@ -35,6 +35,12 @@ body
 h1
 {
     font-size: 2em;
+}
+
+p
+{
+    font-size: 1.2em;
+    margin-top: 0.4em;
 }
 
 .reorderableList
@@ -64,5 +70,12 @@ h1
     color: #000;
     display: inline-block;
     width: 1.7em;
+}
+
+.reorderableList.heightLimited
+{
+    height: 20em;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 
