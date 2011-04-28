@@ -77,5 +77,6 @@ p
     height: 20em;
     overflow-y: auto;
     overflow-x: hidden;
+    position: relative;
 }
 

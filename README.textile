@@ -2,9 +2,9 @@ h1. awesomereorder — a lightweight, simple, drag-and-drop list reordering plug
 
 h2. why bother?
 
-There are a million different jQuery plugins out there that do different things with ordering lists, but they're all more focused on fancy animations and contextual sorting than they are in a simple, friendly, "I want to drag these elements around" sort of thing. They're just lists, right? It shouldn't be difficult to write a plugin that'll just take any old HTML list and make it so that you can drag around the elements and reorder them.
+There are a million different jQuery plugins out there that do different things with ordering lists, but they're all more focused on fancy animations and contextual sorting than they are on a simple, friendly, "I want to drag these elements around" sort of thing. They're just lists, right? It shouldn't be difficult to write a plugin that'll just take any old HTML list and make it so that you can drag around the elements and reorder them.
 
-And in fact, it's not difficult. It's just tedious and annoying to account for all the edge cases. I finally got sick of writing a version of this for every project that needed one, so I finally decided to wrap it all into a reusable plugin.
+And in fact, it's not difficult. It's just tedious and annoying to account for all the edge cases. I finally got sick of writing a version of this for every project that needed one, so here it is wrapped into a reusable plugin.
 
 h2. prerequisites
 

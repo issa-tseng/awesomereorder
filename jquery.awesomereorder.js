@@ -257,7 +257,7 @@
                     },
                     drag: function(event, ui)
                     {
-                        lastPosition = { left: ui.position.left, top: ui.position.top };
+                        lastPosition = { left: ui.offset.left, top: ui.offset.top };
                         checkScroll(lastPosition);
                         checkHover(lastPosition);
 
