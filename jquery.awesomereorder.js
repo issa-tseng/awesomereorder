@@ -207,70 +207,82 @@
                             .remove();
             };
 
-            // init jquery-draggable with our stuff
-            $items.draggable($.extend({}, {
-                addClass: false,
-                axis: (directionType == 'v') ? 'y' : undefined,
-                helper: 'clone',
-                scroll: false, // jquery-ui-draggable's own scroll is garbage; use our own.
-                start: function(event, ui)
-                {
-                    // find closest parent that scrolls; measure scroll against that parent
-                    $scrollParent = undefined;
-                    if (isScroll($container))
+            var draggify = function($elems)
+            {
+                // init jquery-draggable with our stuff
+                $elems.draggable($.extend({}, {
+                    addClass: false,
+                    axis: (directionType == 'v') ? 'y' : undefined,
+                    helper: 'clone',
+                    scroll: false, // jquery-ui-draggable's own scroll is garbage; use our own.
+                    start: function(event, ui)
                     {
-                        $scrollParent = $container;
-                    }
-                    else
-                    {
-                        $container.parents().each(function()
+                        // find closest parent that scrolls; measure scroll against that parent
+                        $scrollParent = undefined;
+                        if (isScroll($container))
                         {
-                            var $this = $(this);
-                            if (isScroll($this))
+                            $scrollParent = $container;
+                        }
+                        else
+                        {
+                            $container.parents().each(function()
                             {
-                                $scrollParent = $this;
-                                return false;
-                            }
-                        });
+                                var $this = $(this);
+                                if (isScroll($this))
+                                {
+                                    $scrollParent = $this;
+                                    return false;
+                                }
+                            });
+                        }
+
+                        // grab our elem
+                        $item = $(this);
+
+                        // measure things
+                        ui.helper.width($item.width());
+                        cachedWidth = $item.outerWidth(true);
+                        cachedHeight = $item.outerHeight(true);
+
+                        // drop in a placeholder
+                        $placeholder = generatePlaceholder();
+                        $item.after($placeholder);
+
+                        // IE8 doesn't deal well with the original element being removed from DOM,
+                        // even if you add it to a detached parent to make jQueryUI < 1.8.9 happy.
+                        // So instead of removing the original element, let's just hide it.
+                        $item.hide();
+
+                        if (typeof localOptions.start == 'function') localOptions.start(event, ui);
+                    },
+                    drag: function(event, ui)
+                    {
+                        lastPosition = { left: ui.position.left, top: ui.position.top };
+                        checkScroll(lastPosition);
+                        checkHover(lastPosition);
+
+                        if (typeof localOptions.drag == 'function') localOptions.drag(event, ui);
+                    },
+                    stop: function(event, ui)
+                    {
+                        isScrolling = false;
+                        clearInterval(scrollTimer);
+
+                        dropItem(ui.helper);
+
+                        if (typeof localOptions.stop == 'function') localOptions.stop(event, ui);
                     }
+                }, localOptions.uiDraggableDefaults));
+            };
 
-                    // grab our elem
-                    $item = $(this);
+            draggify($items);
 
-                    // measure things
-                    ui.helper.width($item.width());
-                    cachedWidth = $item.outerWidth(true);
-                    cachedHeight = $item.outerHeight(true);
-
-                    // drop in a placeholder
-                    $placeholder = generatePlaceholder();
-                    $item.after($placeholder);
-
-                    // IE8 doesn't deal well with the original element being removed from DOM,
-                    // even if you add it to a detached parent to make jQueryUI < 1.8.9 happy.
-                    // So instead of removing the original element, let's just hide it.
-                    $item.hide();
-
-                    if (typeof localOptions.start == 'function') localOptions.start(event, ui);
-                },
-                drag: function(event, ui)
-                {
-                    lastPosition = { left: ui.position.left, top: ui.position.top };
-                    checkScroll(lastPosition);
-                    checkHover(lastPosition);
-
-                    if (typeof localOptions.drag == 'function') localOptions.drag(event, ui);
-                },
-                stop: function(event, ui)
-                {
-                    isScrolling = false;
-                    clearInterval(scrollTimer);
-
-                    dropItem(ui.helper);
-
-                    if (typeof localOptions.stop == 'function') localOptions.stop(event, ui);
-                }
-            }, localOptions.uiDraggableDefaults));
+            // bind to events for ipc
+            $container.bind('awesomereorder-listupdated', function()
+            {
+                $items = $container.children('.' + localOptions.listItemSelector);
+                draggify($items.filter(':not(.ui-draggable)'));
+            });
         });
     };
 
