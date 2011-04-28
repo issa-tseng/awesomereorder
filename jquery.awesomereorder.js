@@ -155,6 +155,13 @@
                 if ($scrollParent !== undefined)
                     stackHeight -= $scrollParent.scrollTop();
 
+                // are we going up or down?
+                var direction;
+                if (lastPosition === undefined)
+                    direction = 0; // check both
+                else
+                    direction = position.top - lastPosition.top;
+
                 // run through elements to find a match
                 var found = false;
                 $container.children($(localOptions.listItemSelector)).each(function()
@@ -172,7 +179,7 @@
 
                     var threshold = $candidate.outerHeight(true) * localOptions.activeRange;
 
-                    if (position.top < (stackHeight + threshold))
+                    if ((direction <= 0) && (position.top < (stackHeight + threshold)))
                     {
                         if (!$candidate.prev().data('awesomereorder-placeholder'))
                         {
@@ -184,8 +191,10 @@
 
                     stackHeight += $candidate.outerHeight(true);
 
-                    if ((position.top > (stackHeight - threshold)) &&
-                        (position.top < stackHeight))
+                    // compare against bottom of dragged elem for moving down
+                    var itemBottom = position.top + $item.outerHeight();
+                    if ((direction >= 0) && (itemBottom > (stackHeight - threshold)) &&
+                                            (itemBottom < (stackHeight + threshold)))
                     {
                         if (!$candidate.next().data('awesomereorder-placeholder'))
                         {
@@ -193,6 +202,14 @@
                         }
                         found = true;
                         return false; // found it!
+                    }
+
+                    // no matter what, if we've passed the last eligible element,
+                    // we're done. it's possible there was no work to be done.
+                    if (itemBottom < stackHeight)
+                    {
+                        found = true; // lying to ourselves, but that's okay
+                        return false; // bail
                     }
                 });
 
@@ -259,9 +276,10 @@
                     },
                     drag: function(event, ui)
                     {
-                        lastPosition = { left: ui.offset.left, top: ui.offset.top };
-                        checkScroll(lastPosition);
-                        checkHover(lastPosition);
+                        var currentPosition = { left: ui.offset.left, top: ui.offset.top };
+                        checkScroll(currentPosition);
+                        checkHover(currentPosition);
+                        lastPosition = currentPosition;
 
                         if (typeof localOptions.drag == 'function') localOptions.drag(event, ui);
                     },
