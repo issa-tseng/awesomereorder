@@ -300,7 +300,7 @@
             // bind to events for ipc
             $container.bind('awesomereorder-listupdated', function()
             {
-                $items = $container.children('.' + localOptions.listItemSelector);
+                $items = $container.children(localOptions.listItemSelector);
                 draggify($items.filter(':not(.ui-draggable)'));
             });
         });
