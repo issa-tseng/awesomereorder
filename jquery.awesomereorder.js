@@ -147,11 +147,13 @@
 
             var checkHover = function(position)
             {
-
                 // calculate initial height
                 var containerOffset = $container.position();
-                var stackHeight = containerOffset.top - $container.scrollTop() +
-                                  parseInt($container.css('margin-top'));
+                var stackHeight = containerOffset.top + parseInt($container.css('margin-top'));
+
+                // account for scrolling
+                if ($scrollParent !== undefined)
+                    stackHeight -= $scrollParent.scrollTop();
 
                 // run through elements to find a match
                 var found = false;
