@@ -148,7 +148,7 @@
             var checkHover = function(position)
             {
                 // calculate initial height
-                var containerOffset = $container.position();
+                var containerOffset = $container.offset();
                 var stackHeight = containerOffset.top + parseInt($container.css('margin-top'));
 
                 // account for scrolling
