@@ -224,6 +224,8 @@
             {
                 $placeholder.after($item.show())
                             .remove();
+
+                $item.trigger('awesomereorder-dropped');
             };
 
             var draggify = function($elems)
