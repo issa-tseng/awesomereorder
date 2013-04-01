@@ -8,9 +8,13 @@ And in fact, it's not difficult. It's just tedious and annoying to account for a
 
 h2. prerequisites
 
-* *jQuery*. I develop against jQuery 1.4.4 and 1.5.2.
-* *jQuery UI Draggable*. Doesn't matter how you include it, as long as it's there. I support jQuery UI 1.8.6+.
-* *a list*. @<ul>@, @<ol>@, bunch of @<div>@s in a @<div>@, block, inline, it doesn't really matter. @<dl>@s are a bit out there, though, I can't really deal with those properly.
+* *jQuery*. I develop against jQuery 1.4.4+. It's been known to work on 1.9.x.
+* *jQuery UI Draggable*. Doesn't matter how you include it, as long as it's there. I support jQuery UI 1.8.6+. It's been known to work on 1.10.x.
+* *a list*. @<ul>@, @<ol>@, bunch of @<div>@s in a @<div>@, in block layout. @<dl>@s are a bit out there, though, I can't really deal with those properly.
+
+h2. usage
+
+Usually as simple as @$('#my-ul').awesomereorder()@.
 
 h2. demo
 
@@ -18,7 +22,7 @@ h2. demo
 
 h2. browsers
 
-I test on Chrome 12, Safari 5, Firefox 3.6, and IE 7, 8, and 9. More will come if requested.
+I test on Chrome latest -1, Safari latest -1, Firefox latest -1, and IE 7, 8, 9, and 10. More will come if requested.
 
 h2. licensing
 
