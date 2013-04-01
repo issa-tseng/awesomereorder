@@ -149,11 +149,8 @@
             {
                 // calculate initial height
                 var containerOffset = $container.offset();
-                var stackHeight = containerOffset.top + parseInt($container.css('margin-top'));
-
-                // account for scrolling
-                if ($scrollParent !== undefined)
-                    stackHeight -= $scrollParent.scrollTop();
+                var stackHeight = containerOffset.top + parseInt($container.css('margin-top')) -
+                    $container.scrollTop();
 
                 // are we going up or down?
                 var direction;
