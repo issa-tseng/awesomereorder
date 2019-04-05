@@ -8,8 +8,8 @@ And in fact, it's not difficult. It's just tedious and annoying to account for a
 
 h2. prerequisites
 
-* *jQuery*. I develop against jQuery 1.4.4+. It's been known to work on 1.9.x.
-* *jQuery UI Draggable*. Doesn't matter how you include it, as long as it's there. I support jQuery UI 1.8.6+. It's been known to work on 1.10.x.
+* *jQuery*. I develop against jQuery 1.4.4+. It's been known to work on 3+.
+* *jQuery UI Draggable*. Doesn't matter how you include it, as long as it's there. I support jQuery UI 1.8.6+. It's been known to work on 1.10.x. It's a bit glitchy on 1.12.x for the moment, as you see on the sample site.
 * *a list*. @<ul>@, @<ol>@, bunch of @<div>@s in a @<div>@, in block layout. @<dl>@s are a bit out there, though, I can't really deal with those properly.
 
 h2. usage
@@ -18,7 +18,7 @@ Usually as simple as @$('#my-ul').awesomereorder()@.
 
 h2. demo
 
-"Go here":http://dev.dontexplain.com/awesomereorder/example/index.html for a couple of demos. It'll look nicer if you have a modern browser, since all the pretty stuff is in CSS3.
+"Go here":http://clint-tseng.github.io/awesomereorder/ for a couple of demos. It'll look nicer if you have a modern browser, since all the pretty stuff is in CSS3.
 
 h2. browsers
 
